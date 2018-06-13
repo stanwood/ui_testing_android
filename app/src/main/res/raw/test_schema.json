@@ -1,0 +1,30 @@
+{
+  "initial_sleep_time": 2000,
+  "command_sleep_time": 1000,
+  "launch_timeout": 5000,
+  "view_timeout": 10000,
+  "auto_snapshot": false,
+  "test_cases": [
+    {
+      "id": "1",
+      "title": "button click test",
+      "description": "button click test",
+      "navigation": [
+        "language('fr')",
+        "view['button'].tap",
+        "snapshot",
+        "kill"
+      ]
+    },
+    {
+      "id": "2",
+      "title": "set text test",
+      "description": "set text test",
+      "navigation": [
+        "view['text'].setText['Text has been set now']",
+        "sleep",
+        "snapshot"
+      ]
+    }
+  ]
+}

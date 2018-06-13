@@ -1,0 +1,38 @@
+./gradlew connectedCheck
+
+./gradlew app:installRtvDebug app:installRtvDebugAndroidTest
+
+
+adb shell am instrument -e de.rtv de.stanwood.rtv.uiautomator/android.support.test.runner.AndroidJUnitRunner
+
+adb -s emulator-5554 shell pm grant de.rtv android.permission.WRITE_EXTERNAL_STORAGE
+adb shell pm grant de.rtv.test android.permission.WRITE_EXTERNAL_STORAGE
+adb shell pm grant de.rtv.test android.permission.READ_EXTERNAL_STORAGE
+
+adb install -r ./app/build/outputs/apk/rtv/debug/app-rtv-debug.apk
+
+
+./gradlew app:installFlavor2Debug app:installFlavor2DebugAndroidTest
+To run the Instrumentation tests in the app module execute:
+adb shell am instrument -w de.rtv.uiautomator/android.support.test.runner.AndroidJUnitRunner
+
+./gradlew app:connectedAndroidTest
+
+
+./gradlew app:installRtvDebug app:installRtvDebugAndroidTest
+
+adb shell pm grant de.rtv.test android.permission.WRITE_EXTERNAL_STORAGE
+adb shell pm grant de.rtv.test android.permission.READ_EXTERNAL_STORAGE
+adb shell pm grant de.rtv android.permission.WRITE_EXTERNAL_STORAGE
+adb shell pm grant de.rtv android.permission.READ_EXTERNAL_STORAGE
+
+adb shell am instrument -w de.rtv.test/android.support.test.runner.AndroidJUnitRunner
+
+./gradlew app:installTvTvDebug app:installTvtvDebugAndroidTest
+
+adb shell pm grant de.tvtv.test android.permission.WRITE_EXTERNAL_STORAGE
+adb shell pm grant de.tvtv.test android.permission.READ_EXTERNAL_STORAGE
+adb shell pm grant de.tvtv android.permission.WRITE_EXTERNAL_STORAGE
+adb shell pm grant de.tvtv android.permission.READ_EXTERNAL_STORAGE
+
+adb shell am instrument -w de.tvtv.test/android.support.test.runner.AndroidJUnitRunner
