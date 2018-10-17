@@ -82,7 +82,7 @@ There might be the case that a view does not have resource id defined yet, espec
 
 ## Supported actions
 
-![Actions](/library/src/main/java/io/stanwood/uitesting/model/Action.java)
+[Actions](/library/src/main/java/io/stanwood/uitesting/model/Action.java)
 
 #### Json example
 ```json
@@ -121,7 +121,7 @@ There are two ways how to run tests
 
 Select SUITest class in the left Navigator view, right click it, and select "Run/Debug SUITest"
 #### With a helper script
-![Script](run_ui_tests.sh)
+[Script](run_ui_tests.sh)
 
 ```./run_ui_tests -a app.id.to.test -c full.reference.to.a.test.class -b BuildName [-e avd_name]```
 
