@@ -82,12 +82,13 @@ public class NavigationParser {
         for (int i = 0; i < words.length - 1; i++) {
 
             String viewResId = null;
+            String viewText = null;
             int viewIndex = -1;
             boolean shouldSeekParent = false;
 
             //find view['tab_now'] or view['recycler_view'][12] or view['android:id/text1'][parent_0]
             //Pattern pattern = Pattern.compile("\\[(.*?)\\]");
-            Pattern pattern = Pattern.compile("view\\['(.*?)'\\](\\[(\\w+)\\])?");
+            Pattern pattern = Pattern.compile("view\\['@(.*?)'\\](\\[(\\w+)\\])?");
             Matcher matcher = pattern.matcher(words[i]);
             if (matcher.find()) {
 
@@ -112,9 +113,17 @@ public class NavigationParser {
                     }
                 }
 
+            } else {
+                //the view wasn't described using the ID, let's see whether it is defined by text
+
+                pattern = Pattern.compile("view\\['(.*?)'\\]");
+                matcher = pattern.matcher(words[i]);
+
+                //get text
+                viewText = matcher.group(1);
             }
 
-            actionViews.add(new ActionView(viewResId, viewIndex, shouldSeekParent));
+            actionViews.add(new ActionView(viewText, viewResId, viewIndex, shouldSeekParent));
         }
         return actionViews;
     }
