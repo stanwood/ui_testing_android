@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <uses-sdk android:targetSdkVersion="22" android:minSdkVersion="10"
-        tools:overrideLibrary="android.support.test.uiautomator.v18"/>
+    <uses-sdk tools:overrideLibrary="android.support.test.uiautomator.v18"/>
 
 </manifest>
