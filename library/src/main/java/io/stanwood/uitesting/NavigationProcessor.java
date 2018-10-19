@@ -1,6 +1,7 @@
 package io.stanwood.uitesting;
 
 import android.support.test.uiautomator.By;
+import android.support.test.uiautomator.BySelector;
 import android.support.test.uiautomator.Direction;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject2;
@@ -14,6 +15,7 @@ import io.stanwood.uitesting.log.Logger;
 import io.stanwood.uitesting.log.Report;
 import io.stanwood.uitesting.log.ReportDispatcher;
 import io.stanwood.uitesting.log.Tracker;
+import io.stanwood.uitesting.model.Action;
 import io.stanwood.uitesting.model.ActionView;
 import io.stanwood.uitesting.model.Command;
 import io.stanwood.uitesting.model.TestCase;
@@ -35,25 +37,55 @@ public class NavigationProcessor {
     }
 
     /**
-     * Find and return a view by it's resource id
+     * Finds a view by resource ID or text.
      *
      * @param view
      * @param actionView
      * @return
      */
     private UiObject2 findView(UiObject2 view, ActionView actionView) {
-        if (!actionView.isParent()) {
+
+        UiObject2 foundView = null;
+
+        if (actionView.getResourceId() != null) {
+            foundView = findViewBySelector(
+                    view,
+                    By.res(actionView.getResourceId()),
+                    actionView.isParent()
+            );
+        } else if (actionView.getText() != null) {
+            foundView = findViewBySelector(
+                    view,
+                    By.text(actionView.getText()),
+                    actionView.isParent()
+            );
+        }
+
+
+        return foundView;
+    }
+
+    /**
+     * Find and return a view by a given selector.
+     *
+     * @param view
+     * @param selector
+     * @param isParent
+     * @return
+     */
+    private UiObject2 findViewBySelector(UiObject2 view, BySelector selector, boolean isParent) {
+        if (!isParent) {
             if (view != null) {
-                view = view.findObject(By.res(actionView.getResourceId()));
+                view = view.findObject(selector);
             } else {
-                view = device.wait(Until.findObject(By.res(actionView.getResourceId())), testSuite.getViewTimeout());
+                view = device.wait(Until.findObject(selector), testSuite.getViewTimeout());
             }
         } else {
             if (view != null) {
-                view = view.findObject(By.res(actionView.getResourceId())).getParent();
+                view = view.findObject(selector).getParent();
                 //view = view.findObjects(By.res(actionView.getResourceId())).get(actionView.getIndex());
             } else {
-                view = device.wait(Until.findObject(By.res(actionView.getResourceId())), testSuite.getViewTimeout()).getParent();
+                view = device.wait(Until.findObject(selector), testSuite.getViewTimeout()).getParent();
                 //view = device.wait(Until.findObjects(By.res(actionView.getResourceId())), VIEW_TIMEOUT).get(actionView.getIndex());
             }
         }
