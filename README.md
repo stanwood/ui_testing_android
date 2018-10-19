@@ -78,11 +78,11 @@ On the left side you can see a screenshot of the current view.
 On the right side you see all the views used within current activity.
 In this particular case the resource id of the selected view is: countryTitle
 This id is being used within test if we want to do some action on that view, or maybe just test if the view is being displayed
-There might be the case that a view does not have resource id defined yet, especially when/if databinding is being used. In that case the developer needs to define a resource id for that view in the xml layout to be able to access it.
+There might be the case that a view does not have resource id defined yet, especially when/if databinding is being used. In that case the developer either needs to define a resource id for that view in the XML layout or you search for the View by the text on it.
 
 ## Supported actions
 
-![Actions](/library/src/main/java/io/stanwood/uitesting/model/Action.java)
+[Actions](/library/src/main/java/io/stanwood/uitesting/model/Action.java)
 
 #### Json example
 ```json
@@ -98,10 +98,10 @@ There might be the case that a view does not have resource id defined yet, espec
         "title": "Simple button click test",
         "description": "Simple button click test",
         "navigation": [
-          "view['button'].click",
+          "view['@button'].click", // click on button defined by resource ID
           "sleep",
           "snapshot",
-          "view['text'].setText['12345']",
+          "view['text'].setText['12345']", // set text on text field defined by its text
           "sleep",
           "snapshot"
         ]
@@ -121,7 +121,7 @@ There are two ways how to run tests
 
 Select SUITest class in the left Navigator view, right click it, and select "Run/Debug SUITest"
 #### With a helper script
-![Script](run_ui_tests.sh)
+[Script](run_ui_tests.sh)
 
 ```./run_ui_tests -a app.id.to.test -c full.reference.to.a.test.class -b BuildName [-e avd_name]```
 

@@ -2,14 +2,24 @@ package io.stanwood.uitesting.model;
 
 public class ActionView {
 
+    private String text;
     private String resourceId;
     private int index;
     private boolean parent;
 
-    public ActionView(String resourceId, int index, boolean parent) {
+    public ActionView(String text, String resourceId, int index, boolean parent) {
+        this.text = text;
         this.resourceId = resourceId;
         this.index = index;
         this.parent = parent;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     public boolean isParent() {
