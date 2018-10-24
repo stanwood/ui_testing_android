@@ -72,7 +72,7 @@ public class SUITest extends BaseTest {
 
 Same class in Kotlin:
 
-```
+```kotlin
 const val JSON_SCHEMA_FILE = "res/raw/test_schema.json"
 
 @RunWith(AndroidJUnit4::class)
