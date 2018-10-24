@@ -119,18 +119,20 @@ public class NavigationParser {
                 pattern = Pattern.compile("view\\['(.*?)'\\](\\[(\\w+)\\])?");
                 matcher = pattern.matcher(words[i]);
 
-                //get text
-                viewText = matcher.group(1);
+                if (matcher.find()) {
+                    //get text
+                    viewText = matcher.group(1);
 
-                //get index, if any
-                String s = matcher.group(3);
-                if (s != null) {
-                    String[] splited = TextUtils.split(s, "\\_");
-                    if (splited.length > 1) {
-                        shouldSeekParent = true;
-                        viewIndex = Integer.parseInt(splited[1]);
-                    } else {
-                        viewIndex = Integer.parseInt(s);
+                    //get index, if any
+                    String s = matcher.group(3);
+                    if (s != null) {
+                        String[] splited = TextUtils.split(s, "\\_");
+                        if (splited.length > 1) {
+                            shouldSeekParent = true;
+                            viewIndex = Integer.parseInt(splited[1]);
+                        } else {
+                            viewIndex = Integer.parseInt(s);
+                        }
                     }
                 }
             }
