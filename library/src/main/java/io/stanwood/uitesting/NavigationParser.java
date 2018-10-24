@@ -27,13 +27,13 @@ public class NavigationParser {
      * @return
      */
     public Command parseCommand(String s) {
-        String[] splited = TextUtils.split(s, "(?<!\\\\)\\.");
+        String[] splited = TextUtils.split(s, "(?<!\\\\\\\\)\\.");
 
         if (splited.length < 1) throw new IllegalArgumentException();
 
         for (int i = 0; i < splited.length; i++) {
             String partialCommand = splited[i];
-            splited[i] = partialCommand.replaceAll("(?<=\\\\)\\.", "");
+            splited[i] = partialCommand.replaceAll("(?<=\\\\\\\\)\\.", "");
         }
 
         //get action, always the last item
