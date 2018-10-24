@@ -113,7 +113,7 @@ There might be the case that a view does not have resource id defined yet, espec
 
 [Actions](/library/src/main/java/io/stanwood/uitesting/model/Action.java)
 
-Dots (`.`) between texts need to be escaped with two backslashes like so: `\\.`.
+Dots (`.`) in texts need to be escaped with two backslashes like so: `\\.`.
 
 #### Json example
 ```json
@@ -132,7 +132,7 @@ Dots (`.`) between texts need to be escaped with two backslashes like so: `\\.`.
           "view['@button'].click", // click on button defined by resource ID
           "sleep",
           "snapshot",
-          "view['text'].setText['12345']", // set text on text field defined by its text
+          "view['text with a dot\\. Do not forget to escape!'].setText['12345']", // set text on text field defined by its text
           "sleep",
           "snapshot"
         ]
