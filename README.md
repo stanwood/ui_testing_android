@@ -40,7 +40,7 @@ dependencies {
 
 ## Add test class
 
-A simple test class SUITest should be added to the following folder
+A simple test class SUITest needs to be added to the following folder
 ![TestClassFolder](/images/img_test_path.png)
 
 ```java
@@ -61,6 +61,7 @@ public class SUITest extends BaseTest {
         super.initTests(schemaProvider, slackTracker);
     }
 
+    // DO NOT leave this method out: it just does the super call, but adds the @Test annotation!
     @Test
     public void runTests() {
         super.runTests();
@@ -68,6 +69,30 @@ public class SUITest extends BaseTest {
 
 }
 ```
+
+Same class in Kotlin:
+
+```
+const val JSON_SCHEMA_FILE = "res/raw/test_schema.json"
+
+@RunWith(AndroidJUnit4::class)
+@SdkSuppress(minSdkVersion = 18)
+class SUITest : BaseTest() {
+
+    @Before
+    fun start() {
+        ResourceSchemaProvider(this, JSON_SCHEMA_FILE, BuildConfig.APPLICATION_ID).let {
+            super.initTests(it)
+        }
+    }
+
+    @Test
+    public override fun runTests() {
+        super.runTests()
+    }
+}
+```
+
 ## Resource ids
 
 1. Start the app within emulator or on a device(needs to be connected to the computer)
