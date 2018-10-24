@@ -113,6 +113,8 @@ There might be the case that a view does not have resource id defined yet, espec
 
 [Actions](/library/src/main/java/io/stanwood/uitesting/model/Action.java)
 
+Dots (`.`) between texts need to be escaped with two backslashes like so: `\\.`.
+
 #### Json example
 ```json
   {
