@@ -135,7 +135,7 @@ public class NavigationParser {
                 }
             }
 
-            actionViews.add(new ActionView(viewtext, viewId, viewIndex, shouldSeekParent));
+            actionViews.add(new ActionView(viewText, viewId, viewIndex, shouldSeekParent));
         }
         return actionViews;
     }
