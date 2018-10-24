@@ -116,7 +116,7 @@ public class NavigationParser {
             } else {
                 //the view wasn't described using the ID, let's see whether it is defined by text
 
-                pattern = Pattern.compile("view\\['(.*?)'\\]");
+                pattern = Pattern.compile("view\\['@(.*?)'\\](\\[(\\w+)\\])?");
                 matcher = pattern.matcher(words[i]);
 
                 //get text
