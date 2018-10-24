@@ -36,8 +36,11 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
     androidTestImplementation 'com.android.support.test.uiautomator:uiautomator-v18:2.1.3'
+    androidTestUtil 'com.android.support.test:orchestrator:1.0.2'
 }
 ```
+
+Also in `build.gradle` setup the orchestrator as described in the [documentation](https://developer.android.com/training/testing/junit-runner#ato-gradle).
 
 ## Add test class
 
