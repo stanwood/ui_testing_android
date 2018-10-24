@@ -35,12 +35,13 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
+    androidTestImplementation 'com.android.support.test.uiautomator:uiautomator-v18:2.1.3'
 }
 ```
 
 ## Add test class
 
-A simple test class SUITest should be added to the following folder
+A simple test class SUITest needs to be added to the following folder
 ![TestClassFolder](/images/img_test_path.png)
 
 ```java
@@ -61,6 +62,7 @@ public class SUITest extends BaseTest {
         super.initTests(schemaProvider, slackTracker);
     }
 
+    // DO NOT leave this method out: it just does the super call, but adds the @Test annotation!
     @Test
     public void runTests() {
         super.runTests();
@@ -68,6 +70,30 @@ public class SUITest extends BaseTest {
 
 }
 ```
+
+Same class in Kotlin:
+
+```kotlin
+const val JSON_SCHEMA_FILE = "res/raw/test_schema.json"
+
+@RunWith(AndroidJUnit4::class)
+@SdkSuppress(minSdkVersion = 18)
+class SUITest : BaseTest() {
+
+    @Before
+    fun start() {
+        ResourceSchemaProvider(this, JSON_SCHEMA_FILE, BuildConfig.APPLICATION_ID).let {
+            super.initTests(it)
+        }
+    }
+
+    @Test
+    public override fun runTests() {
+        super.runTests()
+    }
+}
+```
+
 ## Resource ids
 
 1. Start the app within emulator or on a device(needs to be connected to the computer)
@@ -87,6 +113,8 @@ There might be the case that a view does not have resource id defined yet, espec
 
 [Actions](/library/src/main/java/io/stanwood/uitesting/model/Action.java)
 
+Dots (`.`) in texts need to be escaped with two backslashes like so: `\\.`.
+
 #### Json example
 ```json
   {
@@ -104,7 +132,7 @@ There might be the case that a view does not have resource id defined yet, espec
           "view['@button'].click", // click on button defined by resource ID
           "sleep",
           "snapshot",
-          "view['text'].setText['12345']", // set text on text field defined by its text
+          "view['text with a dot\\. Do not forget to escape!'].setText['12345']", // set text on text field defined by its text
           "sleep",
           "snapshot"
         ]

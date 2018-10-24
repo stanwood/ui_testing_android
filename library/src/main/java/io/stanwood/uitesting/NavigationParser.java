@@ -27,9 +27,14 @@ public class NavigationParser {
      * @return
      */
     public Command parseCommand(String s) {
-        String[] splited = TextUtils.split(s, "\\.");
+        String[] splited = TextUtils.split(s, "(?<!\\\\)\\.");
 
         if (splited.length < 1) throw new IllegalArgumentException();
+
+        for (int i = 0; i < splited.length; i++) {
+            String partialCommand = splited[i];
+            splited[i] = partialCommand.replaceAll("\\\\.", ".");
+        }
 
         //get action, always the last item
         Action action = parseAction(splited);
@@ -81,7 +86,7 @@ public class NavigationParser {
         List<ActionView> actionViews = new ArrayList<>();
         for (int i = 0; i < words.length - 1; i++) {
 
-            String viewResId = null;
+            String viewId = null;
             String viewText = null;
             int viewIndex = -1;
             boolean shouldSeekParent = false;
@@ -93,12 +98,12 @@ public class NavigationParser {
             if (matcher.find()) {
 
                 //get view resource id
-                viewResId = matcher.group(1);
+                viewId = matcher.group(1);
 
                 //add app package id, if not added yet
-                String[] p = TextUtils.split(viewResId, "/");
+                String[] p = TextUtils.split(viewId, "/");
                 if (p.length == 1) {
-                    viewResId = String.format("%s:id/%s", mTestSuite.getPackageName(), viewResId);
+                    viewId = String.format("%s:id/%s", mTestSuite.getPackageName(), viewId);
                 }
 
                 //get index, if any
@@ -116,14 +121,28 @@ public class NavigationParser {
             } else {
                 //the view wasn't described using the ID, let's see whether it is defined by text
 
-                pattern = Pattern.compile("view\\['(.*?)'\\]");
+                pattern = Pattern.compile("view\\['(.*?)'\\](\\[(\\w+)\\])?");
                 matcher = pattern.matcher(words[i]);
 
-                //get text
-                viewText = matcher.group(1);
+                if (matcher.find()) {
+                    //get text
+                    viewText = matcher.group(1);
+
+                    //get index, if any
+                    String s = matcher.group(3);
+                    if (s != null) {
+                        String[] splited = TextUtils.split(s, "\\_");
+                        if (splited.length > 1) {
+                            shouldSeekParent = true;
+                            viewIndex = Integer.parseInt(splited[1]);
+                        } else {
+                            viewIndex = Integer.parseInt(s);
+                        }
+                    }
+                }
             }
 
-            actionViews.add(new ActionView(viewText, viewResId, viewIndex, shouldSeekParent));
+            actionViews.add(new ActionView(viewText, viewId, viewIndex, shouldSeekParent));
         }
         return actionViews;
     }
