@@ -81,7 +81,7 @@ public class NavigationParser {
         List<ActionView> actionViews = new ArrayList<>();
         for (int i = 0; i < words.length - 1; i++) {
 
-            String viewResId = null;
+            String viewId = null;
             String viewText = null;
             int viewIndex = -1;
             boolean shouldSeekParent = false;
@@ -93,12 +93,12 @@ public class NavigationParser {
             if (matcher.find()) {
 
                 //get view resource id
-                viewResId = matcher.group(1);
+                viewId = matcher.group(1);
 
                 //add app package id, if not added yet
-                String[] p = TextUtils.split(viewResId, "/");
+                String[] p = TextUtils.split(viewId, "/");
                 if (p.length == 1) {
-                    viewResId = String.format("%s:id/%s", mTestSuite.getPackageName(), viewResId);
+                    viewId = String.format("%s:id/%s", mTestSuite.getPackageName(), viewId);
                 }
 
                 //get index, if any
@@ -120,13 +120,7 @@ public class NavigationParser {
                 matcher = pattern.matcher(words[i]);
 
                 //get text
-                viewResId = matcher.group(1);
-
-                //add app package id, if not added yet
-                String[] p = TextUtils.split(viewResId, "/");
-                if (p.length == 1) {
-                    viewResId = String.format("%s:id/%s", mTestSuite.getPackageName(), viewResId);
-                }
+                viewText = matcher.group(1);
 
                 //get index, if any
                 String s = matcher.group(3);
@@ -141,7 +135,7 @@ public class NavigationParser {
                 }
             }
 
-            actionViews.add(new ActionView(viewText, viewResId, viewIndex, shouldSeekParent));
+            actionViews.add(new ActionView(viewtext, viewId, viewIndex, shouldSeekParent));
         }
         return actionViews;
     }
