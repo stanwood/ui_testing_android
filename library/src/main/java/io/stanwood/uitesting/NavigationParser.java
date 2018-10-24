@@ -33,7 +33,7 @@ public class NavigationParser {
 
         for (int i = 0; i < splited.length; i++) {
             String partialCommand = splited[i];
-            splited[i] = partialCommand.replaceAll("(?<=\\\\\\\\)\\.", "");
+            splited[i] = partialCommand.replaceAll("(?<=\\\\\\\\)\\.", ".");
         }
 
         //get action, always the last item
