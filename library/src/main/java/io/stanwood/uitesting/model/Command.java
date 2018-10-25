@@ -31,14 +31,6 @@ public class Command {
         this.error = error;
     }
 
-    public boolean isPassed() {
-        return passed;
-    }
-
-    public void setPassed(boolean passed) {
-        this.passed = passed;
-    }
-
     public Action getAction() {
         return action;
     }
