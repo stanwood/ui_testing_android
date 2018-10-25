@@ -135,10 +135,10 @@ Dots (`.`) in texts need to be escaped with two backslashes like so: `\\.`.
         "description": "Simple button click test",
         "enabled": true, // optional, true by default, can be used to quickly disable test cases
         "navigation": [
-          "view['@button'].tap", // click on button defined by resource ID
+          "view['@button'].setText['12345']", // set text on EditText defined by resource ID
           "sleep",
           "snapshot",
-          "view['text with a dot\\. Do not forget to escape!'].setText['12345']", // set text on text field defined by its text
+          "view['text with a dot\\. Do not forget to escape!'].tap", // tap on View defined by its text
           "sleep",
           "snapshot"
         ]
