@@ -134,7 +134,7 @@ Dots (`.`) in texts need to be escaped with two backslashes like so: `\\.`.
         "title": "Simple button click test",
         "description": "Simple button click test",
         "navigation": [
-          "view['@button'].click", // click on button defined by resource ID
+          "view['@button'].tap", // click on button defined by resource ID
           "sleep",
           "snapshot",
           "view['text with a dot\\. Do not forget to escape!'].setText['12345']", // set text on text field defined by its text
