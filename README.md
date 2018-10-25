@@ -40,6 +40,8 @@ dependencies {
 }
 ```
 
+Make sure to always clean the project after updating any of these test dependencies, the Android Gradle Plugin doesn't always seem to automatically pick up these changes when building the test artifacts.
+
 Also in `build.gradle` setup the orchestrator as described in the [documentation](https://developer.android.com/training/testing/junit-runner#ato-gradle).
 
 ## Add test class
