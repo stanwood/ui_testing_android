@@ -58,4 +58,12 @@ public class TestSuite {
     public void setPackageName(String packageName) {
         this.packageName = packageName;
     }
+
+    public boolean isPassed() {
+        for (TestCase testCase : testCases) {
+            if (!testCase.isPassed()) return false;
+        }
+
+        return true;
+    }
 }

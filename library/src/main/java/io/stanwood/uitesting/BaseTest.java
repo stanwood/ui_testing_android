@@ -9,6 +9,7 @@ import io.stanwood.uitesting.log.Tracker;
 import io.stanwood.uitesting.model.TestSuite;
 import io.stanwood.uitesting.schema.SchemaProvider;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
@@ -16,8 +17,8 @@ public class BaseTest {
 
     protected TestSuite testSuite;
     protected UiDevice device;
-    NavigationProcessor navigationProcessor;
-    MyBroadcastReceiver receiver;
+    private NavigationProcessor navigationProcessor;
+    private MyBroadcastReceiver receiver;
 
     protected void initTests(SchemaProvider schemaProvider, Tracker... trackers) {
         testSuite = schemaProvider.readSchema();
@@ -42,6 +43,7 @@ public class BaseTest {
         if (receiver != null) {
             InstrumentationRegistry.getTargetContext().unregisterReceiver(receiver);
         }
+        assertThat(testSuite.isPassed(), is(true));
     }
 
 }

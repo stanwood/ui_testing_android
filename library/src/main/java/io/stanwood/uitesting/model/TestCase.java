@@ -8,6 +8,7 @@ public class TestCase {
     private String title;
     private String description;
     private List<String> navigation;
+    private boolean isPassed;
 
     public String getId() {
         return id;
@@ -39,5 +40,13 @@ public class TestCase {
 
     public void setNavigation(List<String> navigation) {
         this.navigation = navigation;
+    }
+
+    public boolean isPassed() {
+        return isPassed;
+    }
+
+    public void setPassed(boolean passed) {
+        isPassed = passed;
     }
 }
