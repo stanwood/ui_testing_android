@@ -43,6 +43,7 @@ public class BaseTest {
         if (receiver != null) {
             InstrumentationRegistry.getTargetContext().unregisterReceiver(receiver);
         }
+
         assertThat(testSuite.isPassed(), is(true));
     }
 
