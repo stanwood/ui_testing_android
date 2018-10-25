@@ -36,8 +36,13 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
     androidTestImplementation 'com.android.support.test.uiautomator:uiautomator-v18:2.1.3'
+    androidTestUtil 'com.android.support.test:orchestrator:1.0.2'
 }
 ```
+
+Make sure to always clean the project after updating any of these test dependencies, the Android Gradle Plugin doesn't always seem to automatically pick up these changes when building the test artifacts.
+
+Also in `build.gradle` setup the orchestrator as described in the [documentation](https://developer.android.com/training/testing/junit-runner#ato-gradle).
 
 ## Add test class
 
@@ -128,8 +133,9 @@ Dots (`.`) in texts need to be escaped with two backslashes like so: `\\.`.
         "id": "1",
         "title": "Simple button click test",
         "description": "Simple button click test",
+        "enabled": true, // optional, true by default, can be used to quickly disable test cases
         "navigation": [
-          "view['@button'].click", // click on button defined by resource ID
+          "view['@button'].tap", // click on button defined by resource ID
           "sleep",
           "snapshot",
           "view['text with a dot\\. Do not forget to escape!'].setText['12345']", // set text on text field defined by its text

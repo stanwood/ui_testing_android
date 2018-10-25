@@ -136,7 +136,14 @@ public class NavigationProcessor {
                 view.scroll(Direction.UP, 1.0f);
                 break;
             case VISIBLE:
-                //already handled by device.wait(Until.findObject
+                if (view == null) {
+                    throw new UiObjectNotFoundException("");
+                }
+
+                if (view.getVisibleBounds().height() <= 0 || view.getVisibleBounds().width() <= 0) {
+                    throw new IllegalStateException("View not visible!");
+                }
+
                 break;
             case SETTEXT:
                 if (!TextUtils.isEmpty(command.getAction().getText())) {
@@ -173,7 +180,7 @@ public class NavigationProcessor {
         Util.sleep(1000);
     }
 
-    public void process() {
+    void process() {
         List<TestCase> testCases = testSuite.getTestCases();
         Report report = new Report();
 
@@ -183,9 +190,19 @@ public class NavigationProcessor {
         Util.startApp(testSuite.getPackageName(), testSuite.getLaunchTimeout());
 
         int counterSuccess = 0, counterFailure = 0;
-        for (int i = 0, size = testCases.size(); i < size; i++) {
+        testCaseLoop: for (int i = 0, size = testCases.size(); i < size; i++) {
 
             TestCase testCase = testCases.get(i);
+
+            if (!testCase.isEnabled()) {
+                Logger.logDelimiter();
+                Logger.log("Skipping testcase with title: " + testCase.getTitle());
+                Logger.log("Test description: " + testCase.getDescription());
+                Logger.logDelimiter();
+
+                testCase.setPassed(true);
+                continue;
+            }
 
             Logger.logDelimiter();
             Logger.log("Starting testcase with title: " + testCase.getTitle());
@@ -205,18 +222,17 @@ public class NavigationProcessor {
                     if (testSuite.isAutoSnapshot()) {
                         Util.screenshot(device, testCase.getTitle());
                     }
-                    command.setPassed(true);
                 } catch (Exception e) {
                     addError(command, e);
                     Logger.log(e);
-                }
-
-                if (command != null && command.isPassed()) {
-                    counterSuccess++;
-                } else {
                     counterFailure++;
+                    testCase.setPassed(false);
+                    continue testCaseLoop;
                 }
             }
+
+            testCase.setPassed(true);
+            counterSuccess++;
         }
 
         report.setFailedTests(counterFailure);
