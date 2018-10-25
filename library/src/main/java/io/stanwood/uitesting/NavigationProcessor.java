@@ -194,6 +194,16 @@ public class NavigationProcessor {
 
             TestCase testCase = testCases.get(i);
 
+            if (!testCase.isEnabled()) {
+                Logger.logDelimiter();
+                Logger.log("Skipping testcase with title: " + testCase.getTitle());
+                Logger.log("Test description: " + testCase.getDescription());
+                Logger.logDelimiter();
+
+                testCase.setPassed(true);
+                continue;
+            }
+
             Logger.logDelimiter();
             Logger.log("Starting testcase with title: " + testCase.getTitle());
             Logger.log("Test description: " + testCase.getDescription());

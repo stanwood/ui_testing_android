@@ -1,5 +1,7 @@
 package io.stanwood.uitesting.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class TestCase {
@@ -8,6 +10,10 @@ public class TestCase {
     private String title;
     private String description;
     private List<String> navigation;
+
+    @SerializedName("enabled")
+    private boolean isEnabled = true;
+
     private boolean isPassed;
 
     public String getId() {
@@ -48,5 +54,13 @@ public class TestCase {
 
     public void setPassed(boolean passed) {
         isPassed = passed;
+    }
+
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
     }
 }
