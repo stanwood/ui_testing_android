@@ -133,6 +133,7 @@ Dots (`.`) in texts need to be escaped with two backslashes like so: `\\.`.
         "id": "1",
         "title": "Simple button click test",
         "description": "Simple button click test",
+        "enabled": true, // optional, true by default, can be used to quickly disable test cases
         "navigation": [
           "view['@button'].tap", // click on button defined by resource ID
           "sleep",
