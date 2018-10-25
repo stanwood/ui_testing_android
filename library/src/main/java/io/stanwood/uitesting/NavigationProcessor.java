@@ -136,7 +136,14 @@ public class NavigationProcessor {
                 view.scroll(Direction.UP, 1.0f);
                 break;
             case VISIBLE:
-                //already handled by device.wait(Until.findObject
+                if (view == null) {
+                    throw new UiObjectNotFoundException("");
+                }
+
+                if (view.getVisibleBounds().height() <= 0 || view.getVisibleBounds().width() <= 0) {
+                    throw new IllegalStateException("View not visible!");
+                }
+
                 break;
             case SETTEXT:
                 if (!TextUtils.isEmpty(command.getAction().getText())) {
