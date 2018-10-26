@@ -10,10 +10,8 @@
       "title": "button click test",
       "description": "button click test",
       "navigation": [
-        "language('fr')",
-        "view['button'].tap",
-        "snapshot",
-        "kill"
+        "view['@button'].tap",
+        "snapshot"
       ]
     },
     {
@@ -21,7 +19,8 @@
       "title": "set text test",
       "description": "set text test",
       "navigation": [
-        "view['text'].setText['Text has been set now']",
+        "language('de')",
+        "view['German text not set'].setText['Text has been set now\\. Success!!!']",
         "sleep",
         "snapshot"
       ]

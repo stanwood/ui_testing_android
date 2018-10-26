@@ -13,11 +13,7 @@ public class Logger {
     }
 
     public static void log(Exception e) {
-        if (e.getMessage() != null) {
-            Log.e("StanwoodTest", e.getMessage());
-        } else {
-            Log.e("StanwoodTest", e.getMessage());
-        }
+        Log.e("StanwoodTest", e.getMessage());
         e.printStackTrace();
     }
 }
