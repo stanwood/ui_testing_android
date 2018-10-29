@@ -19,8 +19,7 @@
       "title": "set text test",
       "description": "set text test",
       "navigation": [
-        "language('de')",
-        "view['German text not set'].setText['Text has been set now\\. Success!!!']",
+        "view['Text not set'].setText['Text has been set now\\. Success!!!']",
         "sleep",
         "snapshot"
       ]
