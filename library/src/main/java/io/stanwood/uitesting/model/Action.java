@@ -13,7 +13,7 @@ public enum Action {
     SLEEP("sleep"),             //sleeps for certain amount of time
     SNAPSHOT("snapshot"),       //takes a snapshot
     KILL("kill"),               //kills the app
-    LANGUAGE("language");       //changes the language
+    LANGUAGE("language");       //changes the language, flaky and thus discouraged to use
 
     private final String stringValue;
     private String text;
